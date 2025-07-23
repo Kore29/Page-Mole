@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react";
+import Card from './Card'
 
 function App() {
-  const [mensaje, setMensaje] = useState('');
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
     fetch('http://localhost:3000')
       .then(res => res.json())
-      .then(data => setMensaje(data.mensaje));
+      .then(data => setItems(data));
   }, []);
 
   return (
-    <h1 className="text-blue-300">{mensaje}</h1>
+      <div className="flex gap-10 items-center m-5">
+        {items.length === 0 
+          ? <p>No hay items</p> 
+          : items.map(item => <Card item={item}/>)}
+      </div>
   );
 }
 
